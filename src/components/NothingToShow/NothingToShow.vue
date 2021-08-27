@@ -108,8 +108,8 @@ export default {
   height: 1px;
   width: 1px;
   transform: scale(100);
-  top: 63.1%;
-  left: 50.8%;
+  top: 50%;
+  left: 50%;
   opacity: 1;
   z-index: 0;
   animation: pulse 5s infinite;
@@ -127,7 +127,6 @@ export default {
     transform: scale(1);
     opacity: 1;
   }
-
   70% {
     opacity: 0;
   }

@@ -2,22 +2,22 @@
   <div id="app" :class="{'hide': hide}">
     <navbar
       @logout="closePage"
-      v-if="$authenticated() || hide"
+      v-if="$root.authenticated || hide"
       :items="navbar"
       @toggle="toggler"
       class="d-none d-md-block"
     />
     <mobile-navbar
       @logout="closePage"
-      v-if="$authenticated() || hide"
+      v-if="$root.authenticated || hide"
       :items="navbar"
       class="d-block d-md-none"
     />
     <div
       class="page-body"
-      :class="{'navbar-is-open': navbarIsOpen && $authenticated(), 'navbar-is-closed': !navbarIsOpen && $authenticated()}"
+      :class="{'navbar-is-open': navbarIsOpen && $root.authenticated, 'navbar-is-closed': !navbarIsOpen && $root.authenticated}"
     >
-      <page-header v-if="$authenticated()" />
+      <page-header v-if="$root.authenticated" />
       <b-container id="main">
         <b-row>
           <b-col cols="12">
@@ -78,14 +78,15 @@ export default {
   },
   beforeCreate() {
     this.$session.start();
+  
     document.title = (this.$route.meta.title || "") + " | " + "Vue Start";
 
     if (
-      (!this.$authenticated() && this.$route.meta.protected) ||
-      (this.$route.name == "Other" && !this.$authenticated())
+      (!this.$root.authenticated && this.$route.meta.protected) ||
+      (this.$route.name == "Other" && !this.$root.authenticated)
     )
       this.$router.push("/entrar");
-    else if (this.$authenticated() && !this.$route.name.match("Home")) {
+    else if (this.$root.authenticated && !this.$route.name.match("Home")) {
       this.$router.push("/home");
     }
   },
@@ -103,6 +104,7 @@ export default {
   color: #2c3e50;
   margin-top: 0;
   background-color: rgba(222, 231, 255, 0.2);
+  overflow-x: hidden;
 }
 #app.hide {
   transition: ease-in-out 200ms;

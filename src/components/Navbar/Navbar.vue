@@ -2,15 +2,13 @@
   <div
     id="main_navbar"
     class="p-3 bg-brand-dark overflow-hidden"
-    :class="{'navbar-open': navbar.isOpen, 'navbar-closed': !navbar.isOpen}"
+    :class="{ 'navbar-open': navbar.isOpen, 'navbar-closed': !navbar.isOpen }"
   >
     <b-row class="justify-content-center mt-0">
       <b-col cols="12" class="logo">
         <!-- <div class="user-image" :style="{backgroundImage: `url(${$getMedia(user_data.pic)})`}"></div> -->
         <transition mode="out-in" name="slide">
-          <img class="nav-brand-logo"
-            src="../../assets/logo.png"
-          />
+          <img class="nav-brand-logo" src="../../assets/logo.png" />
           <!-- <img src="../../assets/logobot.png" width=100% v-else /> -->
         </transition>
       </b-col>
@@ -18,25 +16,35 @@
     <b-nav class="d-flex flex-column mt-5">
       <div class="nav-item px-0 py-2" v-for="(item, idx) in items" :key="idx">
         <router-link
-          v-if="((item.protected && $profile() && $profile().role.match('_ADM')) || !item.protected)"
+          v-if="(item.protected && $root.profile) || !item.protected"
           class="nav-link pl-0 text-white default-transition no-decoration"
           :to="item.uri"
         >
           <div class="text-left my-2">
-            <fas :icon="item.icon || 'project-diagram'" class="text-white link-icon" />
+            <fas
+              :icon="item.icon || 'project-diagram'"
+              class="text-white link-icon"
+            />
             <transition mode="out-in" name="fade">
-              <span v-show="navbar.isOpen">{{item.name}}</span>
+              <span v-show="navbar.isOpen">{{ item.name }}</span>
             </transition>
           </div>
         </router-link>
       </div>
     </b-nav>
-    <div class="shrink-icon d-flex align-items-center justify-content-center" @click="navbarShrink">
-      <fas icon="caret-left" class="fa-2x text-white" :class="{'rotate': !navbar.isOpen}" />
+    <div
+      class="shrink-icon d-flex align-items-center justify-content-center"
+      @click="navbarShrink"
+    >
+      <fas
+        icon="caret-left"
+        class="fa-2x text-white"
+        :class="{ rotate: !navbar.isOpen }"
+      />
     </div>
     <div id="sidebar-logout" class="text-white default-transition">
       <b-row class="justify-content-left text-left pl-3 py-2" @click="logout">
-        <b-col cols="1"  >
+        <b-col cols="1">
           <fas icon="power-off" />
         </b-col>
         <b-col cols="10" v-show="navbar.isOpen">Sair</b-col>
@@ -53,25 +61,25 @@ export default {
       user_data: {
         name: "Helo",
         email: "helo@match.com",
-        pic: "users/nopic.png",
+        pic: "users/nopic.png"
       },
       navbar: {
-        isOpen: true,
-      },
+        isOpen: true
+      }
     };
   },
   props: ["items"],
   methods: {
-    navbarShrink: function () {
+    navbarShrink: function() {
       this.navbar.isOpen = !this.navbar.isOpen;
       this.$emit("toggle", this.navbar.isOpen);
     },
-    logout: function () {
+    logout: function() {
       if (LoginService.done()) {
         this.$emit("logout");
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -94,16 +102,16 @@ export default {
   background-color: rgb(252, 186, 64);
   box-shadow: -1em 0.5em 0.3em rgba(0, 0, 0, 0.125);
 }
-.nav-brand-logo{
+.nav-brand-logo {
   border-radius: 0 0 30% 30%;
   transition: ease-in-out 200ms;
   transition-delay: 400ms;
   max-width: 100px;
 }
-.navbar-closed .nav-brand-logo{
+.navbar-closed .nav-brand-logo {
   margin-top: -15px;
   margin-left: -5px;
-  padding: 25px 0 ;
+  padding: 25px 0;
   border-radius: 0 0 30% 30%;
   box-shadow: none !important;
   max-width: 30px;
@@ -145,11 +153,11 @@ export default {
   background-color: var(--def-brand-darker);
   left: -12px;
   border-right: 10px solid var(--def-brand-dark);
-  border-radius: 0 50% 50% 0
+  border-radius: 0 50% 50% 0;
 }
-.nav-link{
+.nav-link {
   transition: ease-in-out 200ms;
-  left: 0
+  left: 0;
 }
 .nav-item .nav-link:hover {
   left: 2px;

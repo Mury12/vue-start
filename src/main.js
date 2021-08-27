@@ -20,5 +20,10 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  data: {
+    authenticated: false,
+    profile: {},
+    onRequest: false,
+  },
   render: h => h(App),
 }).$mount('#app')

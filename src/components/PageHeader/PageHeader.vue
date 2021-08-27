@@ -4,9 +4,9 @@
     <div class="user-info px-3">
       <b-row class="h-100 align-items-center">
         <b-col cols="12">
-          Olá, {{name}}!
+          Olá, {{ name }}!
           <br />
-          <b>({{role}})</b>
+          <b>({{ role }})</b>
           <br />
           <b-dropdown
             variant="link"
@@ -18,7 +18,9 @@
             <template v-slot:button-content>
               <fas icon="caret-down" class="text-white" />
             </template>
-            <b-dropdown-item href="#" @click="alterSelfData">Alterar seus dados</b-dropdown-item>
+            <b-dropdown-item href="#" @click="alterSelfData"
+              >Alterar seus dados</b-dropdown-item
+            >
           </b-dropdown>
         </b-col>
       </b-row>
@@ -32,25 +34,23 @@ export default {
   data() {
     return {};
   },
-  components:{
-  },
+  components: {},
   methods: {
     alterSelfData: function() {
-      this.$bvModal.show('self-update_modal')
+      this.$bvModal.show("self-update_modal");
     }
   },
   computed: {
     name() {
-      return this.$profile().name.split(" ")[0];
+      let name = "User";
+      if (this.$root.profile && this.$root.profile.name)
+        name = this.$root.profile.name.split(" ")[0];
+      return name;
     },
     role() {
-      let role = String(
-        this.$profile().role.split("_ADM")[0]
-      ).toLocaleLowerCase();
-      role = role.substr(0, 1).toUpperCase() + role.substr(1, 15);
-      return role;
-    },
-  },
+      return "Common";
+    }
+  }
 };
 </script>
 

@@ -1,20 +1,23 @@
 <template>
-    <div>
-        <page-body />
-    </div>
+  <div class="w-100">
+    <!-- <overlayer :show="onRequest" /> -->
+    <socket-data />
+  </div>
 </template>
 
 <script>
-import PageBody from './components/PageBody'
+import SocketData from "./components/SocketData.vue";
 export default {
-    name: 'Home',
-    data() {
-        return {
-
-        }
-    },
-    components: {
-        PageBody
-    }
-}
+  name: "Home",
+  components: {
+    SocketData
+  },
+  data() {
+    return {};
+  },
+  methods: {}
+};
 </script>
+
+<style scoped>
+</style>
