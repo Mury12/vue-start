@@ -21,16 +21,14 @@ const LoginService = new Vue({
           password,
         });
 
-        if ("token" in result.data) {
-          this.$session.set('@app:user', JSON.stringify(result.data));
-          this.$session.set('@app:token', JSON.stringify(result.data.token));
+        if ("token" in result) {
+          this.$session.set('@app:user', JSON.stringify(result));
+          this.$session.set('@app:token', JSON.stringify(result.token));
           
           return this.$util.respond(user);
         }
       } catch (err) {
         return this.$util.respond(err.response.data, true);
-
-
       }
       */
     },
